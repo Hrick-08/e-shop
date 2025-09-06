@@ -4,6 +4,7 @@ import { Star, ShoppingCart, ArrowLeft, Heart, Share2, Plus, Minus } from 'lucid
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { API_ENDPOINTS } from '../config/api';
 
 const ItemDetail = () => {
   const { id } = useParams();
@@ -28,7 +29,7 @@ const ItemDetail = () => {
 
   const fetchItem = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/items/${id}`);
+      const response = await axios.get(API_ENDPOINTS.ITEMS.BY_ID(id));
       setItem(response.data);
       setError('');
     } catch (error) {
@@ -41,7 +42,7 @@ const ItemDetail = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/items/${id}/reviews`);
+      const response = await axios.get(API_ENDPOINTS.ITEMS.REVIEWS(id));
       setReviews(response.data.reviews || []);
     } catch (error) {
       console.error('Fetch reviews error:', error);
@@ -83,7 +84,7 @@ const ItemDetail = () => {
 
     setSubmittingReview(true);
     try {
-      await axios.post(`http://localhost:5000/api/items/${id}/reviews`, {
+      await axios.post(API_ENDPOINTS.ITEMS.REVIEWS(id), {
         rating: userRating,
         comment: userReview
       }, {
