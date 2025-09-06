@@ -1,0 +1,279 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modern Design System inspired by reference */
+:root {
+  /* Primary Colors - Teal/Turquoise */
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-200: #99f6e4;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-primary-700: #0f766e;
+  --color-primary-800: #115e59;
+  --color-primary-900: #134e4a;
+  
+  /* Accent Colors - Coral/Orange */
+  --color-accent-50: #fef2f2;
+  --color-accent-100: #fee2e2;
+  --color-accent-200: #fecaca;
+  --color-accent-300: #fca5a5;
+  --color-accent-400: #f87171;
+  --color-accent-500: #ef4444;
+  --color-accent-600: #dc2626;
+  --color-accent-700: #b91c1c;
+  --color-accent-800: #991b1b;
+  --color-accent-900: #7f1d1d;
+  
+  /* Warm Orange from reference */
+  --color-warm-orange: #ff6b47;
+  --color-warm-orange-light: #ff8567;
+  --color-warm-orange-dark: #e55a42;
+  
+  /* Neutral Colors */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  --gradient-warm: linear-gradient(135deg, #ff6b47 0%, #e55a42 100%);
+  --gradient-hero: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #2dd4bf 100%);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  
+  /* Animation durations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+}
+
+/* Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Body styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  color: var(--color-gray-800);
+  background-color: var(--color-gray-50);
+}
+
+/* Custom Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in-up {
+  animation: fadeInUp var(--duration-slow) ease-out;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale var(--duration-normal) ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight var(--duration-normal) ease-out;
+}
+
+.animate-pulse-custom {
+  animation: pulse 2s infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Modern button styles */
+.btn-primary {
+  @apply bg-gradient-to-r from-teal-600 to-teal-700 text-white px-6 py-3 rounded-lg font-semibold;
+  @apply hover:from-teal-700 hover:to-teal-800 focus:ring-4 focus:ring-teal-200;
+  @apply transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl;
+}
+
+.btn-secondary {
+  @apply bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-lg font-semibold;
+  @apply hover:from-orange-600 hover:to-red-600 focus:ring-4 focus:ring-orange-200;
+  @apply transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl;
+}
+
+.btn-outline {
+  @apply border-2 border-teal-600 text-teal-600 px-6 py-3 rounded-lg font-semibold;
+  @apply hover:bg-teal-600 hover:text-white focus:ring-4 focus:ring-teal-200;
+  @apply transition-all duration-300;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300;
+  @apply transform hover:-translate-y-1;
+}
+
+.card-gradient {
+  @apply bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg hover:shadow-xl;
+  @apply transition-all duration-300 transform hover:-translate-y-1;
+}
+
+/* Glass morphism effect */
+.glass {
+  @apply bg-white bg-opacity-20 backdrop-blur-lg border border-white border-opacity-30;
+  @apply rounded-xl shadow-lg;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-teal-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-teal-600;
+}
+
+/* Loading spinner */
+.spinner {
+  @apply animate-spin rounded-full border-4 border-gray-200 border-t-teal-600;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-teal-600 to-teal-800 bg-clip-text text-transparent;
+}
+
+.gradient-text-warm {
+  @apply bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent;
+}
+
+/* Focus visible for accessibility */
+.focus-visible {
+  @apply focus:outline-none focus:ring-4 focus:ring-teal-200 focus:ring-opacity-75;
+}
+
+/* Responsive text sizing */
+.text-responsive-sm {
+  @apply text-sm sm:text-base;
+}
+
+.text-responsive-lg {
+  @apply text-lg sm:text-xl md:text-2xl;
+}
+
+.text-responsive-xl {
+  @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+}
+
+/* Custom spacing */
+.section-padding {
+  @apply py-12 md:py-16 lg:py-20;
+}
+
+.container-padding {
+  @apply px-4 sm:px-6 lg:px-8;
+}
+
+/* Modern input styles */
+.input-modern {
+  @apply w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-4 focus:ring-teal-200;
+  @apply focus:border-teal-500 transition-all duration-300 bg-white;
+  @apply placeholder-gray-400;
+}
+
+/* Hover effects */
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-2;
+}
+
+.hover-glow {
+  @apply transition-all duration-300;
+  @apply hover:shadow-lg hover:shadow-teal-500/25;
+}
+
+/* Mobile-first responsive utilities */
+@media (max-width: 640px) {
+  .mobile-center {
+    @apply text-center;
+  }
+  
+  .mobile-full {
+    @apply w-full;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
