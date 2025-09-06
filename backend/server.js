@@ -17,11 +17,12 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === "production" 
+  origin: process.env.NODE_ENV === "production"
     ? true // allow same origin (frontend served by backend)
     : process.env.CLIENT_URL || "http://localhost:5173",
   credentials: true
 }));
+
 app.use(express.json());
 
 // API Routes
@@ -30,10 +31,7 @@ app.use('/api/items', itemRoutes);
 app.use('/api/cart', cartRoutes);
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ MongoDB connected successfully'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
@@ -41,15 +39,13 @@ mongoose.connect(process.env.MONGODB_URI, {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Always serve frontend in production
-if (process.env.NODE_ENV === "production" || true) {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
   app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
   });
 } else {
-  // Local dev only
   app.get("/", (req, res) => {
     res.json({ message: "E-commerce API is running (development mode)" });
   });
