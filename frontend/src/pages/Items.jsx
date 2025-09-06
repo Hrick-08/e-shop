@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { API_ENDPOINTS } from '../config/api';
 
 const Items = () => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const Items = () => {
         }
       });
       
-      const response = await axios.get(`http://localhost:5000/api/items?${params}`);
+      const response = await axios.get(`${API_ENDPOINTS.ITEMS.BASE}?${params}`);
       setItems(response.data.items);
       setPagination(response.data.pagination);
       setError('');
@@ -60,7 +61,7 @@ const Items = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/items/categories');
+      const response = await axios.get(API_ENDPOINTS.ITEMS.CATEGORIES);
       setCategories(response.data.categories);
     } catch (error) {
       console.error('Fetch categories error:', error);
