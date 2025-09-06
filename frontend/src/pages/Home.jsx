@@ -94,7 +94,7 @@ const Home = () => {
         <div className="container mx-auto container-padding">
           <div className="text-center mb-16 animate-fade-in-up">
             <h2 className="text-responsive-lg font-bold text-gray-900 mb-4">
-              Why Choose <span className="gradient-text">Neuro</span>?
+              Why Choose <span className="gradient-text">E-shop</span>?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Experience the difference with our premium, scientifically-backed products

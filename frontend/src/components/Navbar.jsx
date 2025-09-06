@@ -36,7 +36,7 @@ const Navbar = () => {
               to="" 
               className="text-2xl md:text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-300"
             >
-              Neuro
+              E-shop
             </Link>
             
             {/* Desktop Navigation */}
