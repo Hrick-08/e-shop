@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 
 const AuthContext = createContext();
 
@@ -67,7 +68,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         try {
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          const response = await axios.get('http://localhost:5000/api/auth/me');
+          const response = await axios.get(API_ENDPOINTS.AUTH.ME);
           dispatch({
             type: 'LOGIN_SUCCESS',
             payload: {
@@ -91,7 +92,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     dispatch({ type: 'SET_LOADING', payload: true });
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post(API_ENDPOINTS.AUTH.LOGIN, {
         email,
         password
       });
@@ -115,7 +116,7 @@ export const AuthProvider = ({ children }) => {
   const signup = async (name, email, password) => {
     dispatch({ type: 'SET_LOADING', payload: true });
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/signup', {
+      const response = await axios.post(API_ENDPOINTS.AUTH.SIGNUP, {
         name,
         email,
         password
