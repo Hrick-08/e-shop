@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
+import { API_ENDPOINTS } from '../config/api';
 
 const CartContext = createContext();
 
@@ -66,7 +67,7 @@ export const CartProvider = ({ children }) => {
     
     dispatch({ type: 'SET_LOADING', payload: true });
     try {
-      const response = await axios.get('http://localhost:5000/api/cart');
+      const response = await axios.get(API_ENDPOINTS.CART.BASE);
       dispatch({
         type: 'SET_CART',
         payload: response.data.cart
@@ -84,7 +85,7 @@ export const CartProvider = ({ children }) => {
     if (!token) return { success: false, error: 'Please login first' };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/cart/add', {
+      const response = await axios.post(API_ENDPOINTS.CART.ADD, {
         itemId,
         quantity
       });
@@ -106,7 +107,7 @@ export const CartProvider = ({ children }) => {
     if (!token) return { success: false, error: 'Please login first' };
 
     try {
-      const response = await axios.put('http://localhost:5000/api/cart/update', {
+      const response = await axios.put(API_ENDPOINTS.CART.UPDATE, {
         itemId,
         quantity
       });
@@ -128,7 +129,7 @@ export const CartProvider = ({ children }) => {
     if (!token) return { success: false, error: 'Please login first' };
 
     try {
-      const response = await axios.delete(`http://localhost:5000/api/cart/remove/${itemId}`);
+      const response = await axios.delete(API_ENDPOINTS.CART.REMOVE(itemId));
       
       dispatch({
         type: 'SET_CART',
@@ -147,7 +148,7 @@ export const CartProvider = ({ children }) => {
     if (!token) return { success: false, error: 'Please login first' };
 
     try {
-      await axios.delete('http://localhost:5000/api/cart/clear');
+      await axios.delete(API_ENDPOINTS.CART.CLEAR);
       dispatch({ type: 'CLEAR_CART' });
       return { success: true };
     } catch (error) {
