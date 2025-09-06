@@ -17,7 +17,9 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173', // React dev server for local testing
+  origin: process.env.NODE_ENV === "production" 
+    ? true // allow same origin (frontend served by backend)
+    : process.env.CLIENT_URL || "http://localhost:5173",
   credentials: true
 }));
 app.use(express.json());
@@ -28,26 +30,26 @@ app.use('/api/items', itemRoutes);
 app.use('/api/cart', cartRoutes);
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB connected successfully'))
-  .catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('✅ MongoDB connected successfully'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// ----------------- Serve React Frontend in Production -----------------
+// ----------------- Serve React Frontend -----------------
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-if (process.env.NODE_ENV === "production") {
-  // Serve static files from React build
-  app.use(express.static(path.join(__dirname, "../frontend/dist"))); // Vite build folder
-  // app.use(express.static(path.join(__dirname, "../frontend/build"))); // CRA build folder
+// Always serve frontend in production
+if (process.env.NODE_ENV === "production" || true) {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  // Catch-all route -> React handles routing
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist/index.html")); 
-    // change to build/index.html if CRA
+    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
   });
 } else {
-  // For local dev only
+  // Local dev only
   app.get("/", (req, res) => {
     res.json({ message: "E-commerce API is running (development mode)" });
   });
@@ -56,5 +58,5 @@ if (process.env.NODE_ENV === "production") {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`🚀 Server is running on port ${PORT}`);
 });
